@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { Link } from "react-router-dom";
 
 export default function NavBar() {
   const [search, setSearch] = useState("");
@@ -7,22 +8,22 @@ export default function NavBar() {
     <nav className="bg-white shadow-md">
       <div className="container mx-auto p-4 flex justify-between items-center">
         <div className="text-2xl font-bold text-gray-800">
-          <a href="#">MyMealDB</a>
+          <Link to="#">MyMealDB</Link>
         </div>
 
         <div className="hidden md:flex space-x-6">
-          <a href="#" className="text-gray-600 hover:text-gray-800">
+          <Link to="#" className="text-gray-600 hover:text-gray-800">
             Home
-          </a>
-          <a href="#" className="text-gray-600 hover:text-gray-800">
+          </Link>
+          <Link to="#" className="text-gray-600 hover:text-gray-800">
             About
-          </a>
-          <a href="#" className="text-gray-600 hover:text-gray-800">
+          </Link>
+          <Link to="#" className="text-gray-600 hover:text-gray-800">
             Recipes
-          </a>
-          <a href="#" className="text-gray-600 hover:text-gray-800">
+          </Link>
+          <Link to="#" className="text-gray-600 hover:text-gray-800">
             Contact
-          </a>
+          </Link>
         </div>
 
         <div className="relative">

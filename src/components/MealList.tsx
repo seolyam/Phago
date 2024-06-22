@@ -1,10 +1,11 @@
-import React, { useState } from "react";
+import { useState } from "react";
 import useSWR from "swr";
 import { Meal } from "../types/Meal";
+import { Link } from "react-router-dom";
 
 const fetcher = (url: string) => fetch(url).then((res) => res.json());
 
-const MealList: React.FC = () => {
+const MealList = () => {
   const [search, setSearch] = useState("");
   const { data, error } = useSWR(
     search
@@ -41,9 +42,10 @@ const MealList: React.FC = () => {
       />
       <div className="flex flex-wrap gap-4 justify-center">
         {data.meals.map((meal: Meal) => (
-          <div
+          <Link
+            to={`/meal/${meal.idMeal}`}
             key={meal.idMeal}
-            className="w-48 p-4 bg-gray-100 rounded-lg shadow-md flex flex-col items-center"
+            className="m-2 border cursor-pointer w-48 p-4 bg-gray-100 rounded-lg shadow-md flex flex-col items-center"
           >
             <h2 className="text-lg font-bold text-center">{meal.strMeal}</h2>
             <img
@@ -51,7 +53,7 @@ const MealList: React.FC = () => {
               alt={meal.strMeal}
               className="w-full h-32 object-cover mt-2 rounded-lg"
             />
-          </div>
+          </Link>
         ))}
       </div>
     </div>
