@@ -1,6 +1,8 @@
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import NavBar from "./components/NavBar";
+import MealDetails from "./components/MealDetails";
 import MealList from "./components/MealList";
+import About from "./components/About";
 
 function App() {
   return (
@@ -8,19 +10,10 @@ function App() {
       <NavBar />
       <Routes>
         <Route path="/" element={<MealList />} />
-
+        <Route path="/meal/:id" element={<MealDetails />} />
         <Route path="/about" element={<About />} />
       </Routes>
     </Router>
-  );
-}
-
-function About() {
-  return (
-    <div className="container mx-auto p-4">
-      <h2 className="text-2xl font-bold mb-4">About</h2>
-      <p>This is a simple meal app using the Themealdb API.</p>
-    </div>
   );
 }
 
