@@ -46,9 +46,17 @@ const MealDetails = () => {
       </div>
       <div className="mt-4">
         <h2 className="text-2xl font-bold mb-2">Ingredients</h2>
-        <ul>
+        <ul className="flex justify-center gap-6">
           {getIngredients(meal).map((ingredient, index) => (
-            <li key={index}>{ingredient}</li>
+            <li className="flex items-center " key={index}>
+              <img
+                src={`https://www.themealdb.com/images/ingredients/${ingredient.name}-Small.png`}
+                alt={ingredient.name}
+                className="w-16 h-16 object-cover "
+              />
+              <span>{ingredient.name} &nbsp;</span>
+              <span>{ingredient.measure}</span>
+            </li>
           ))}
         </ul>
       </div>
@@ -56,13 +64,13 @@ const MealDetails = () => {
   );
 };
 
-function getIngredients(meal: Meal): string[] {
-  const ingredients: string[] = [];
+function getIngredients(meal: Meal): { name: string; measure: string }[] {
+  const ingredients: { name: string; measure: string }[] = [];
   for (let i = 1; i <= 20; i++) {
     const ingredient = meal[`strIngredient${i}`];
     const measure = meal[`strMeasure${i}`];
     if (ingredient && ingredient.trim() !== "") {
-      ingredients.push(`${ingredient} - ${measure}`);
+      ingredients.push({ name: ingredient, measure: measure ?? "" });
     }
   }
   return ingredients;
