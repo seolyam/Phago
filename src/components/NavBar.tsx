@@ -1,8 +1,18 @@
 import { useState } from "react";
 import { Link } from "react-router-dom";
 
-export default function NavBar() {
+interface NavBarProps {
+  handleSearch: (query: string) => void;
+}
+
+export default function NavBar({ handleSearch }: NavBarProps) {
   const [search, setSearch] = useState("");
+
+  const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const query = e.target.value;
+    setSearch(query);
+    handleSearch(query);
+  };
 
   return (
     <nav className="bg-white shadow-md">
@@ -18,9 +28,6 @@ export default function NavBar() {
           <Link to="/About" className="text-gray-600 hover:text-gray-800">
             About
           </Link>
-          <Link to="/Recipes" className="text-gray-600 hover:text-gray-800">
-            Recipes
-          </Link>
           <Link to="/Contact" className="text-gray-600 hover:text-gray-800">
             Contact
           </Link>
@@ -29,10 +36,10 @@ export default function NavBar() {
         <div className="relative">
           <input
             type="text"
-            placeholder="Search..."
+            placeholder="Search for a meal"
             value={search}
-            onChange={(e) => setSearch(e.target.value)}
-            className="border border-gray-300 rounded-lg p-2 w-full"
+            onChange={handleInputChange}
+            className="p-2 border border-gray-300 rounded-lg w-full"
           />
         </div>
       </div>

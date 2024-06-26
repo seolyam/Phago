@@ -46,16 +46,16 @@ const MealDetails = () => {
       </div>
       <div className="mt-4">
         <h2 className="text-2xl font-bold mb-2">Ingredients</h2>
-        <ul className="flex justify-center gap-6">
+        <ul className="flex flex-wrap flex-col  gap-y-4">
           {getIngredients(meal).map((ingredient, index) => (
-            <li className="flex items-center " key={index}>
+            <li className="flex items-center text-nowrap space-x-2" key={index}>
               <img
                 src={`https://www.themealdb.com/images/ingredients/${ingredient.name}-Small.png`}
                 alt={ingredient.name}
                 className="w-16 h-16 object-cover "
               />
-              <span>{ingredient.name} &nbsp;</span>
-              <span>{ingredient.measure}</span>
+              <span className="">{ingredient.measure} &nbsp;</span>
+              <span className="">{ingredient.name}</span>
             </li>
           ))}
         </ul>
