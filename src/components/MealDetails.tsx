@@ -1,44 +1,50 @@
-import { useParams } from "react-router-dom";
+import { useParams, useNavigate } from "react-router-dom";
 import useSWR from "swr";
 import { Meal } from "../types/Meal";
+import LazyLoad from "react-lazyload";
 
 const fetcher = (url: string) => fetch(url).then((res) => res.json());
 
 const MealDetails = () => {
   const { id } = useParams();
+  const navigate = useNavigate();
   const { data, error } = useSWR(
     `https://www.themealdb.com/api/json/v1/1/lookup.php?i=${id}`,
     fetcher
   );
 
-  console.log("Meal Details Data:", data);
-  console.log("Meal Details Error:", error);
-
   if (error) {
-    console.error("Failed to load meal details:", error);
     return <div>Failed to Load</div>;
   }
 
   if (!data) {
-    console.log("Loading meal details...");
     return <div>Loading...</div>;
+  }
+
+  if (!data.meals) {
+    return <div>No meals found</div>;
   }
 
   const meal = data.meals[0] as Meal;
 
+  const youtubeUrl = meal.strYoutube;
+  const videoId = youtubeUrl ? new URL(youtubeUrl).searchParams.get("v") : null;
+  const embedUrl = videoId ? `https://www.youtube.com/embed/${videoId}` : null;
+
   return (
-    <div className="container mx-auto p-4 ">
-      <div className="flex-col flex ">
-        <h2 className="text-3xl font-bold flex justify-center ">
-          {meal.strMeal}
-        </h2>
-        <div className="justify-center flex">
+    <div className="container mx-auto p-4">
+      <button onClick={() => navigate(-1)} className="mb-4">
+        Back
+      </button>
+      <h2 className="text-3xl font-bold text-center">{meal.strMeal}</h2>
+      <div className="flex justify-center">
+        <LazyLoad height={200} offset={100} once>
           <img
             src={meal.strMealThumb}
             alt={meal.strMeal}
-            className="w-[50%] h-auto object-cover mt-2 rounded-lg "
+            className="w-[50%] h-auto object-cover rounded-lg"
           />
-        </div>
+        </LazyLoad>
       </div>
       <div className="mt-4">
         <h2 className="text-2xl font-bold mb-2">Instructions</h2>
@@ -46,20 +52,37 @@ const MealDetails = () => {
       </div>
       <div className="mt-4">
         <h2 className="text-2xl font-bold mb-2">Ingredients</h2>
-        <ul className="flex flex-wrap flex-col  gap-y-4">
+        <ul className="flex flex-wrap flex-col gap-y-4">
           {getIngredients(meal).map((ingredient, index) => (
             <li className="flex items-center text-nowrap space-x-2" key={index}>
-              <img
-                src={`https://www.themealdb.com/images/ingredients/${ingredient.name}-Small.png`}
-                alt={ingredient.name}
-                className="w-16 h-16 object-cover "
-              />
-              <span className="">{ingredient.measure} &nbsp;</span>
-              <span className="">{ingredient.name}</span>
+              <LazyLoad height={64} offset={100} once>
+                <img
+                  src={`https://www.themealdb.com/images/ingredients/${ingredient.name}-Small.png`}
+                  alt={ingredient.name}
+                  className="w-16 h-16 object-cover"
+                />
+              </LazyLoad>
+              <span>{ingredient.measure} &nbsp;</span>
+              <span>{ingredient.name}</span>
             </li>
           ))}
         </ul>
       </div>
+      {embedUrl && (
+        <div className="mt-4">
+          <h2 className="text-2xl font-bold mb-2">Video Instructions</h2>
+          <div className="video-container">
+            <iframe
+              title="YouTube Video"
+              width="100%"
+              height="800"
+              src={embedUrl}
+              allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+              allowFullScreen
+            ></iframe>
+          </div>
+        </div>
+      )}
     </div>
   );
 };

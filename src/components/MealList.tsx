@@ -1,6 +1,7 @@
 import useSWR from "swr";
 import { Meal } from "../types/Meal";
 import { Link } from "react-router-dom";
+import LazyLoad from "react-lazyload";
 
 const fetcher = (url: string) => fetch(url).then((res) => res.json());
 
@@ -42,11 +43,13 @@ const MealList = ({ search }: MealListProps) => {
           className="m-2 border cursor-pointer w-48 p-4 bg-gray-100 rounded-lg shadow-md flex flex-col items-center flex-8 transition-transform duration-300 ease-in-out transform hover:scale-105"
         >
           <h2 className="text-lg font-bold text-center">{meal.strMeal}</h2>
-          <img
-            src={meal.strMealThumb}
-            alt={meal.strMeal}
-            className="w-full h-32 object-cover mt-2 rounded-lg"
-          />
+          <LazyLoad height={128} offset={100} once>
+            <img
+              src={meal.strMealThumb}
+              alt={meal.strMeal}
+              className="w-full h-32 object-cover mt-2 rounded-lg"
+            />
+          </LazyLoad>
         </Link>
       ))}
     </div>

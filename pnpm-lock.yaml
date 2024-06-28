@@ -14,12 +14,18 @@ importers:
       postcss:
         specifier: ^8.4.38
         version: 8.4.38
+      prop-types:
+        specifier: ^15.8.1
+        version: 15.8.1
       react:
         specifier: ^18.2.0
         version: 18.3.1
       react-dom:
         specifier: ^18.2.0
         version: 18.3.1(react@18.3.1)
+      react-lazyload:
+        specifier: ^3.2.1
+        version: 3.2.1(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
       react-router-dom:
         specifier: ^6.23.1
         version: 6.23.1(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
@@ -33,6 +39,9 @@ importers:
       '@types/react-dom':
         specifier: ^18.2.22
         version: 18.3.0
+      '@types/react-lazyload':
+        specifier: ^3.2.3
+        version: 3.2.3
       '@typescript-eslint/eslint-plugin':
         specifier: ^7.2.0
         version: 7.13.1(@typescript-eslint/parser@7.13.1(eslint@8.57.0)(typescript@5.4.5))(eslint@8.57.0)(typescript@5.4.5)
@@ -441,6 +450,9 @@ packages:
 
   '@types/react-dom@18.3.0':
     resolution: {integrity: sha512-EhwApuTmMBmXuFOikhQLIBUn6uFg81SwLMOAUgodJF14SOBOCMdU04gDoYi0WOJJHD144TL32z4yDqCW3dnkQg==}
+
+  '@types/react-lazyload@3.2.3':
+    resolution: {integrity: sha512-s03gWlHXiFqZr7TEFDTx8Lkl+ZEYrwTkXP9MNZ3Z3blzsPrnkYjgeSK2tjfzVv/TYVCnDk6TZwNRDHQlHy/1Ug==}
 
   '@types/react@18.3.3':
     resolution: {integrity: sha512-hti/R0pS0q1/xx+TsI73XIqk26eBsISZ2R0wUijXIngRK9R/e7Xw/cXVxQK7R5JjW+SV4zGcn5hXjudkN/pLIw==}
@@ -1078,6 +1090,9 @@ packages:
     resolution: {integrity: sha512-vkcDPrRZo1QZLbn5RLGPpg/WmIQ65qoWWhcGKf/b5eplkkarX0m9z8ppCat4mlOqUsWpyNuYgO3VRyrYHSzX5g==}
     engines: {node: '>= 0.8.0'}
 
+  prop-types@15.8.1:
+    resolution: {integrity: sha512-oj87CgZICdulUohogVAR7AjlC0327U4el4L6eAvOqCeudMDVU0NThNaV+b9Df4dXgSP1gXMTnPdhfe/2qDH5cg==}
+
   punycode@2.3.1:
     resolution: {integrity: sha512-vYt7UD1U9Wg6138shLtLOvdAu+8DsC/ilFtEVHcH+wydcSpNE20AfSOduf6MkRFahL5FY7X1oU7nKVZFtfq8Fg==}
     engines: {node: '>=6'}
@@ -1089,6 +1104,15 @@ packages:
     resolution: {integrity: sha512-5m4nQKp+rZRb09LNH59GM4BxTh9251/ylbKIbpe7TpGxfJ+9kv6BLkLBXIjjspbgbnIBNqlI23tRnTWT0snUIw==}
     peerDependencies:
       react: ^18.3.1
+
+  react-is@16.13.1:
+    resolution: {integrity: sha512-24e6ynE2H+OKt4kqsOvNd8kBpV65zoxbA4BVsEOB3ARVWQki/DHzaUoC5KuON/BiccDaCCTZBuOcfZs70kR8bQ==}
+
+  react-lazyload@3.2.1:
+    resolution: {integrity: sha512-oDLlLOI/rRLY0fUh/HYFCy4CqCe7zdJXv6oTl2pC30tN3ezWxvwcdHYfD/ZkrGOMOOT5pO7hNLSvg7WsmAij1w==}
+    peerDependencies:
+      react: ^0.14.0 || ^15.0.0 || ^16.0.0 || ^17.0.0 || ^18.0.0
+      react-dom: ^0.14.0 || ^15.0.0 || ^16.0.0 || ^17.0.0 || ^18.0.0
 
   react-router-dom@6.23.1:
     resolution: {integrity: sha512-utP+K+aSTtEdbWpC+4gxhdlPFwuEfDKq8ZrPFU65bbRJY+l706qjR7yaidBpo3MSeA/fzwbXWbKBI6ftOnP3OQ==}
@@ -1576,6 +1600,10 @@ snapshots:
   '@types/prop-types@15.7.12': {}
 
   '@types/react-dom@18.3.0':
+    dependencies:
+      '@types/react': 18.3.3
+
+  '@types/react-lazyload@3.2.3':
     dependencies:
       '@types/react': 18.3.3
 
@@ -2231,6 +2259,12 @@ snapshots:
 
   prelude-ls@1.2.1: {}
 
+  prop-types@15.8.1:
+    dependencies:
+      loose-envify: 1.4.0
+      object-assign: 4.1.1
+      react-is: 16.13.1
+
   punycode@2.3.1: {}
 
   queue-microtask@1.2.3: {}
@@ -2240,6 +2274,13 @@ snapshots:
       loose-envify: 1.4.0
       react: 18.3.1
       scheduler: 0.23.2
+
+  react-is@16.13.1: {}
+
+  react-lazyload@3.2.1(react-dom@18.3.1(react@18.3.1))(react@18.3.1):
+    dependencies:
+      react: 18.3.1
+      react-dom: 18.3.1(react@18.3.1)
 
   react-router-dom@6.23.1(react-dom@18.3.1(react@18.3.1))(react@18.3.1):
     dependencies:
