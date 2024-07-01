@@ -1,7 +1,7 @@
 import { useParams, useNavigate } from "react-router-dom";
 import useSWR from "swr";
 import { Meal } from "../types/Meal";
-import LazyLoad from "react-lazyload";
+import Button from "../components/Button";
 
 const fetcher = (url: string) => fetch(url).then((res) => res.json());
 
@@ -33,18 +33,13 @@ const MealDetails = () => {
 
   return (
     <div className="container mx-auto p-4">
-      <button onClick={() => navigate(-1)} className="mb-4">
-        Back
-      </button>
-      <h2 className="text-3xl font-bold text-center">{meal.strMeal}</h2>
-      <div className="flex justify-center">
-        <LazyLoad height={200} offset={100} once>
-          <img
-            src={meal.strMealThumb}
-            alt={meal.strMeal}
-            className="w-[50%] h-auto object-cover rounded-lg"
-          />
-        </LazyLoad>
+      <h2 className="text-3xl font-bold text-center mb-2">{meal.strMeal}</h2>
+      <div className="flex justify-center ">
+        <img
+          src={meal.strMealThumb}
+          alt={meal.strMeal}
+          className="w-[35%] h-auto object-cover "
+        />
       </div>
       <div className="mt-4">
         <h2 className="text-2xl font-bold mb-2">Instructions</h2>
@@ -55,13 +50,11 @@ const MealDetails = () => {
         <ul className="flex flex-wrap flex-col gap-y-4">
           {getIngredients(meal).map((ingredient, index) => (
             <li className="flex items-center text-nowrap space-x-2" key={index}>
-              <LazyLoad height={64} offset={100} once>
-                <img
-                  src={`https://www.themealdb.com/images/ingredients/${ingredient.name}-Small.png`}
-                  alt={ingredient.name}
-                  className="w-16 h-16 object-cover"
-                />
-              </LazyLoad>
+              <img
+                src={`https://www.themealdb.com/images/ingredients/${ingredient.name}-Small.png`}
+                alt={ingredient.name}
+                className="w-16 h-16 object-cover "
+              />
               <span>{ingredient.measure} &nbsp;</span>
               <span>{ingredient.name}</span>
             </li>
@@ -83,6 +76,12 @@ const MealDetails = () => {
           </div>
         </div>
       )}
+      <Button
+        onClick={() => navigate(-1)}
+        className=" mr-2 rounded-xl px-4 fixed bottom-4 right-4 text-2xl bg-black text-white shadow-md text-[85%] transition-transform duration-200 ease-in-out transform hover:scale-105"
+      >
+        Back to List
+      </Button>
     </div>
   );
 };

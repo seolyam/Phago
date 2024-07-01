@@ -1,7 +1,6 @@
 import useSWR from "swr";
 import { Meal } from "../types/Meal";
 import { Link } from "react-router-dom";
-import LazyLoad from "react-lazyload";
 
 const fetcher = (url: string) => fetch(url).then((res) => res.json());
 
@@ -35,21 +34,19 @@ const MealList = ({ search }: MealListProps) => {
   }
 
   return (
-    <div className="flex basis-7 flex-wrap gap-4 justify-start m-8 hover:grow">
+    <div className="flex basis-7 flex-wrap gap-4 justify-start m-8 ">
       {data.meals.map((meal: Meal) => (
         <Link
           to={`/meal/${meal.idMeal}`}
           key={meal.idMeal}
-          className="m-2 border cursor-pointer w-48 p-4 bg-gray-100 rounded-lg shadow-md flex flex-col items-center flex-8 transition-transform duration-300 ease-in-out transform hover:scale-105"
+          className="m-2 border cursor-pointer w-48 p-4 bg-gray-100 rounded-lg shadow-md flex flex-col items-center flex-8 transition-transform duration-200 ease-in-out transform hover:scale-105"
         >
           <h2 className="text-lg font-bold text-center">{meal.strMeal}</h2>
-          <LazyLoad height={128} offset={100} once>
-            <img
-              src={meal.strMealThumb}
-              alt={meal.strMeal}
-              className="w-full h-32 object-cover mt-2 rounded-lg"
-            />
-          </LazyLoad>
+          <img
+            src={meal.strMealThumb}
+            alt={meal.strMeal}
+            className="w-full h-32 object-cover mt-2 rounded-lg"
+          />
         </Link>
       ))}
     </div>
