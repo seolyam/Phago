@@ -8,14 +8,19 @@ interface NavBarProps {
 export default function NavBar({ handleSearch }: NavBarProps) {
   const [search, setSearch] = useState("");
 
-  const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const query = e.target.value;
-    setSearch(query);
-    handleSearch(query);
+  const handleClear = () => {
+    setSearch("");
+    handleSearch("");
+  };
+
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const value = e.target.value;
+    setSearch(value);
+    handleSearch(value);
   };
 
   return (
-    <nav className="bg-white shadow-md">
+    <nav className="bg-white shadow-md mb-8">
       <div className="container mx-auto p-4 flex justify-between items-center">
         <div className="text-2xl font-bold text-gray-800">
           <Link to="/">MyMealDB</Link>
@@ -38,9 +43,17 @@ export default function NavBar({ handleSearch }: NavBarProps) {
             type="text"
             placeholder="Search for a meal"
             value={search}
-            onChange={handleInputChange}
+            onChange={handleChange}
             className="p-2 border border-gray-300 rounded-lg w-full"
           />
+          {search && (
+            <button
+              onClick={handleClear}
+              className="absolute right-2 top-1/2 transform -translate-y-1/2 text-gray-500"
+            >
+              &#x2715;
+            </button>
+          )}
         </div>
       </div>
     </nav>

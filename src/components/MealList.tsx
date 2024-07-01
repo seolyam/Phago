@@ -21,16 +21,28 @@ const MealList = ({ search }: MealListProps) => {
 
   if (error) {
     console.error("Failed to load data:", error);
-    return <div>Failed to Load</div>;
+    return (
+      <div className="flex items-center justify-center min-h-screen">
+        <div className="text-2xl font-bold">Failed to Load</div>
+      </div>
+    );
   }
 
   if (!data) {
     console.log("Loading data...");
-    return <div>Loading...</div>;
+    return (
+      <div className="flex items-center justify-center min-h-screen">
+        <div className="text-2xl font-bold">Loading...</div>
+      </div>
+    );
   }
 
   if (!data.meals) {
-    return <div>No meals found</div>;
+    return (
+      <div className="flex justify-center min-h-screen">
+        <div className="text-2xl font-bold">No meals found</div>
+      </div>
+    );
   }
 
   return (
