@@ -46,7 +46,7 @@ const MealList = ({ search }: MealListProps) => {
   }
 
   return (
-    <div className="flex basis-7 flex-wrap gap-4 justify-start m-8 ">
+    <div className="flex basis-7 flex-wrap gap-4 justify-start m-8 font-sans">
       {data.meals.map((meal: Meal) => (
         <Link
           to={`/meal/${meal.idMeal}`}

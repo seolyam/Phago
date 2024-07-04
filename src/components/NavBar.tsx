@@ -1,4 +1,4 @@
-import { useState } from "react";
+import React, { useState } from "react";
 import { Link } from "react-router-dom";
 
 interface NavBarProps {
@@ -20,24 +20,22 @@ export default function NavBar({ handleSearch }: NavBarProps) {
   };
 
   return (
-    <nav className="bg-white shadow-md mb-8">
+    <nav className="bg-white shadow-md mb-8 font-sans">
       <div className="container mx-auto p-4 flex justify-between items-center">
         <div className="text-2xl font-bold text-gray-800">
           <Link to="/">MyMealDB</Link>
         </div>
-
-        <div className="hidden md:flex space-x-6">
-          <Link to="/" className="text-gray-600 hover:text-gray-800">
-            Home
+        <div className="hidden md:flex space-x-6 gap10">
+          <Link to="meals" className="text-gray-600 hover:text-gray-800">
+            Meals
           </Link>
-          <Link to="/About" className="text-gray-600 hover:text-gray-800">
+          <Link to="/about" className="text-gray-600 hover:text-gray-800">
             About
           </Link>
-          <Link to="/Contact" className="text-gray-600 hover:text-gray-800">
+          <Link to="/contact" className="text-gray-600 hover:text-gray-800">
             Contact
           </Link>
         </div>
-
         <div className="relative">
           <input
             type="text"

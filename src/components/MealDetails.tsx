@@ -32,7 +32,7 @@ const MealDetails = () => {
   const embedUrl = videoId ? `https://www.youtube.com/embed/${videoId}` : null;
 
   return (
-    <div className="container mx-auto p-4">
+    <div className="container mx-auto p-4 font-sans">
       <h2 className="text-3xl font-bold text-center mb-2">{meal.strMeal}</h2>
       <div className="flex justify-center ">
         <img
@@ -78,7 +78,7 @@ const MealDetails = () => {
       )}
       <Button
         onClick={() => navigate(-1)}
-        className=" mr-2 rounded-xl px-4 fixed bottom-4 right-4 text-2xl bg-black text-white shadow-md text-[85%] transition-transform duration-200 ease-in-out transform hover:scale-105"
+        className=" mr-4 rounded-xl px-4 fixed bottom-5 right-4 text-2xl bg-black text-white shadow-md text-[120%] transition-transform duration-200 ease-in-out transform hover:scale-105"
       >
         Back to List
       </Button>
