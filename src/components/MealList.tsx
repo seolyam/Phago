@@ -29,7 +29,6 @@ const MealList = ({ search }: MealListProps) => {
   }
 
   if (!data) {
-    console.log("Loading data...");
     return (
       <div className="flex items-center justify-center min-h-screen">
         <div className="text-2xl font-bold">Loading...</div>

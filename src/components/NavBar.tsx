@@ -22,8 +22,8 @@ export default function NavBar({ handleSearch }: NavBarProps) {
   return (
     <nav className="bg-white shadow-md mb-8 font-sans">
       <div className="container mx-auto p-4 flex justify-between items-center">
-        <div className="text-2xl font-bold text-gray-800">
-          <Link to="/">MyMealDB</Link>
+        <div className="text-2xl font-thin text-gray-800">
+          <Link to="/">phago. </Link>
         </div>
         <div className="hidden md:flex space-x-6 gap10">
           <Link to="meals" className="text-gray-600 hover:text-gray-800">
