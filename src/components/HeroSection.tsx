@@ -32,7 +32,7 @@ const HeroSection: React.FC = () => {
           <img
             src={meal.strMealThumb}
             alt={meal.strMeal}
-            className="w-full h-64 object-cover rounded shadow-lg mb-4 transition-transform duration-200 ease-in-out transform hover:scale-105 "
+            className="w-full h-64 object-cover rounded shadow-lg mb-4 transition-transform duration-200 ease-in-out transform hover:scale-[102%] "
           />
           <h2 className="text-3xl font-bold mt-2">{meal.strMeal}</h2>
           <p className=" text-lg text-gray-700">
@@ -41,9 +41,16 @@ const HeroSection: React.FC = () => {
         </Link>
       </div>
       <div className="flex-wrap w-[40%]">
-        <p className="mt-4 text-gray-600 text-center flex-1 text-lg">
+        <p className="mt-4 text-gray-600 text-center text-lg mb-3">
           {meal.strInstructions.substring(0, 150)}...
         </p>
+        <Link
+          to={`/meal/${meal.idMeal}`}
+          key={meal.idMeal}
+          className="border  border-black"
+        >
+          <p className="">Learn more about this dish</p>
+        </Link>
       </div>
     </div>
   );
