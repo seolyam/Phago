@@ -49,7 +49,7 @@ const HeroSection: React.FC = () => {
           key={meal.idMeal}
           className="border  border-black"
         >
-          <p className="">Learn more about this dish</p>
+          <p className="text-bold">Learn more about this dish</p>
         </Link>
       </div>
     </div>

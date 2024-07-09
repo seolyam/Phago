@@ -1,3 +1,4 @@
+import { useState } from "react";
 import { useParams, useNavigate } from "react-router-dom";
 import useSWR from "swr";
 import { Meal } from "../types/Meal";
@@ -12,6 +13,10 @@ const MealDetails = () => {
     `https://www.themealdb.com/api/json/v1/1/lookup.php?i=${id}`,
     fetcher
   );
+
+  const [showInstructions, setShowInstructions] = useState(false);
+  const [showIngredients, setShowIngredients] = useState(false);
+  const [showVideo, setShowVideo] = useState(false);
 
   if (error) {
     return <div>Failed to Load</div>;
@@ -33,7 +38,7 @@ const MealDetails = () => {
 
   return (
     <div className="container mx-auto p-4 font-sans">
-      <h2 className="text-3xl font-bold text-center mb-2">{meal.strMeal}</h2>
+      <h2 className="text-3xl text-center mb-2">{meal.strMeal}</h2>
       <div className="flex justify-center ">
         <img
           src={meal.strMealThumb}
@@ -41,44 +46,65 @@ const MealDetails = () => {
           className="w-[35%] h-auto object-cover "
         />
       </div>
+
       <div className="mt-4">
-        <h2 className="text-2xl font-bold mb-2">Instructions</h2>
-        <p>{meal.strInstructions}</p>
+        <h2 className="text-xl font-thin mb-2 cursor-pointer">Instructions</h2>
+        {meal.strInstructions}
       </div>
+
       <div className="mt-4">
-        <h2 className="text-2xl font-bold mb-2">Ingredients</h2>
-        <ul className="flex flex-wrap flex-col gap-y-4">
-          {getIngredients(meal).map((ingredient, index) => (
-            <li className="flex items-center text-nowrap space-x-2" key={index}>
-              <img
-                src={`https://www.themealdb.com/images/ingredients/${ingredient.name}-Small.png`}
-                alt={ingredient.name}
-                className="w-16 h-16 object-cover "
-              />
-              <span>{ingredient.measure} &nbsp;</span>
-              <span>{ingredient.name}</span>
-            </li>
-          ))}
-        </ul>
+        <h2
+          className="text-xl font-thin mb-2 cursor-pointer"
+          onClick={() => setShowIngredients(!showIngredients)}
+        >
+          Ingredients {showIngredients ? "▼" : "➤"}
+        </h2>
+        {showIngredients && (
+          <ul className="flex flex-wrap flex-col gap-y-4">
+            {getIngredients(meal).map((ingredient, index) => (
+              <li
+                className="flex items-center text-nowrap space-x-2"
+                key={index}
+              >
+                <img
+                  src={`https://www.themealdb.com/images/ingredients/${ingredient.name}-Small.png`}
+                  alt={ingredient.name}
+                  className="w-16 h-16 object-cover "
+                />
+                <span>{ingredient.measure} &nbsp;</span>
+                <span>{ingredient.name}</span>
+              </li>
+            ))}
+          </ul>
+        )}
       </div>
+
       {embedUrl && (
         <div className="mt-4">
-          <h2 className="text-2xl font-bold mb-2">Video Instructions</h2>
-          <div className="video-container">
-            <iframe
-              title="YouTube Video"
-              width="100%"
-              height="800"
-              src={embedUrl}
-              allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-              allowFullScreen
-            ></iframe>
-          </div>
+          <h2
+            className="text-xl font-thin mb-2 cursor-pointer"
+            onClick={() => setShowVideo(!showVideo)}
+          >
+            Video Instructions {showVideo ? "▼" : "➤"}
+          </h2>
+          {showVideo && (
+            <div className="video-container">
+              <iframe
+                title="YouTube Video"
+                width="100%"
+                height="800"
+                src={embedUrl}
+                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                allowFullScreen
+              ></iframe>
+            </div>
+          )}
         </div>
       )}
+
       <Button
         onClick={() => navigate(-1)}
-        className=" mr-4 rounded-xl px-4 fixed bottom-5 right-4 text-2xl bg-black text-white shadow-md text-[120%] transition-transform duration-200 ease-in-out transform hover:scale-105"
+        className="mr-4 rounded-xl px-4 fixed bottom-5 right-4 text-2xl bg-black text-white shadow-md text-[120%] transition-transform duration-200 ease-in-out transform hover:scale-105"
       >
         Back to List
       </Button>
