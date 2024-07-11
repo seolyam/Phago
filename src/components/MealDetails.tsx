@@ -14,7 +14,6 @@ const MealDetails = () => {
     fetcher
   );
 
-  const [showInstructions, setShowInstructions] = useState(false);
   const [showIngredients, setShowIngredients] = useState(false);
   const [showVideo, setShowVideo] = useState(false);
 
@@ -43,7 +42,7 @@ const MealDetails = () => {
         <img
           src={meal.strMealThumb}
           alt={meal.strMeal}
-          className="w-[35%] h-auto object-cover "
+          className="w-[35%] h-auto object-cover transition-transform duration-200 ease-in-out transform hover:scale-[101%] "
         />
       </div>
 
@@ -69,7 +68,7 @@ const MealDetails = () => {
                 <img
                   src={`https://www.themealdb.com/images/ingredients/${ingredient.name}-Small.png`}
                   alt={ingredient.name}
-                  className="w-16 h-16 object-cover "
+                  className="w-16 h-16 object-cover transition-transform duration-200 ease-in-out transform hover:scale-105 "
                 />
                 <span>{ingredient.measure} &nbsp;</span>
                 <span>{ingredient.name}</span>
