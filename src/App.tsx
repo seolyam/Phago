@@ -5,6 +5,11 @@ import HeroSection from "./components/HeroSection";
 import MealList from "./components/MealList";
 import MealDetails from "./components/MealDetails";
 import About from "./components/About";
+import FeaturesSection from "./components/FeaturesSection";
+import TestimonialsSection from "./components/TestimonialsSection";
+import PopularMealsSection from "./components/PopularMealsSection";
+import Footer from "./components/Footer";
+import Contact from "./components/Contact";
 
 function App() {
   const [search, setSearch] = useState("");
@@ -15,13 +20,25 @@ function App() {
 
   return (
     <Router>
-      <div className="font-sans">
+      <div className="font-sans min-h-screen flex flex-col">
         <NavBar handleSearch={handleSearch} />
         <Routes>
-          <Route path="/" element={<HeroSection />} />
+          <Route
+            path="/"
+            element={
+              <>
+                <HeroSection />
+                <FeaturesSection />
+                <PopularMealsSection />
+                <TestimonialsSection />
+                <Footer />
+              </>
+            }
+          />
           <Route path="/meals" element={<MealList search={search} />} />
           <Route path="/meal/:id" element={<MealDetails />} />
           <Route path="/about" element={<About />} />
+          <Route path="/contact" element={<Contact />} />
         </Routes>
       </div>
     </Router>
