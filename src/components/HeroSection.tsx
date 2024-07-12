@@ -1,4 +1,3 @@
-import React from "react";
 import { Link } from "react-router-dom";
 import useSWR from "swr";
 
@@ -13,7 +12,7 @@ interface Meal {
 
 const fetcher = (url: string) => fetch(url).then((res) => res.json());
 
-const HeroSection: React.FC = () => {
+const HeroSection = () => {
   const { data, error } = useSWR(
     "https://www.themealdb.com/api/json/v1/1/random.php",
     fetcher
@@ -27,7 +26,7 @@ const HeroSection: React.FC = () => {
   return (
     <div className="font-sans flex flex-row items-center bg-gray-100 p-6 rounded-xl shadow-lg max-w-4xl mx-auto gap-2">
       <div className="flex-col flex-2 grow">
-        <h1 className="text-2xl font-bold mb-4">A meal you might like:</h1>
+        <h1 className="text-2xl font-bold mb-4">Discover a Meal:</h1>
         <Link to={`/meal/${meal.idMeal}`} key={meal.idMeal}>
           <img
             src={meal.strMealThumb}
@@ -44,12 +43,8 @@ const HeroSection: React.FC = () => {
         <p className="mt-4 text-gray-600 text-center text-lg mb-3">
           {meal.strInstructions.substring(0, 150)}...
         </p>
-        <Link
-          to={`/meal/${meal.idMeal}`}
-          key={meal.idMeal}
-          className="border  border-black"
-        >
-          <p className="text-bold">Learn more about this dish</p>
+        <Link to={`/meal/${meal.idMeal}`} key={meal.idMeal} className="">
+          <p className="text-bold text-right">Learn more about this dish</p>
         </Link>
       </div>
     </div>
