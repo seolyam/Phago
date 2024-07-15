@@ -12,7 +12,7 @@ const MealList = ({ search }: MealListProps) => {
   const { data, error } = useSWR(
     search
       ? `https://www.themealdb.com/api/json/v1/1/search.php?s=${search}`
-      : "https://www.themealdb.com/api/json/v1/1/search.php?s=",
+      : `https://www.themealdb.com/api/json/v1/1/search.php?s=`,
     fetcher
   );
 
