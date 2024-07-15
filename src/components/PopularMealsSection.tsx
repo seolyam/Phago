@@ -13,14 +13,14 @@ const fetcher = (url: string) => fetch(url).then((res) => res.json());
 
 const PopularMealsSection = () => {
   const { data, error } = useSWR(
-    "https://www.themealdb.com/api/json/v1/1/filter.php?c=Seafood",
+    "https://www.themealdb.com/api/json/v1/1/filter.php?a=Japanese",
     fetcher
   );
 
   if (error) return <div>Failed to load popular meals</div>;
   if (!data) return <div>Loading...</div>;
 
-  const meals: Meal[] = data.meals.slice(0, 3); // Fetch only 3 meals for display
+  const meals: Meal[] = data.meals.slice(0, 6);
 
   return (
     <section className="py-16 bg-white">
