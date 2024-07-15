@@ -1,5 +1,3 @@
-// src/components/ui/Button.tsx
-
 import React from "react";
 
 interface ButtonProps {
@@ -8,7 +6,7 @@ interface ButtonProps {
   className?: string;
 }
 
-const Button: React.FC<ButtonProps> = ({ children, onClick, className }) => {
+const Button = ({ children, onClick, className }: ButtonProps) => {
   return (
     <button className={`${className}`} onClick={onClick}>
       {children}
