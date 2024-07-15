@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import NavBar from "./components/NavBar";
-import HeroSection from "./components/HeroSection";
+import RandomMeal from "./components/RandomMeal";
 import MealList from "./components/MealList";
 import MealDetails from "./components/MealDetails";
 import About from "./components/About";
@@ -27,7 +27,7 @@ function App() {
             path="/"
             element={
               <>
-                <HeroSection />
+                <RandomMeal />
                 <FeaturesSection />
                 <PopularMealsSection />
                 <TestimonialsSection />
