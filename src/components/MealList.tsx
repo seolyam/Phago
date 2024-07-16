@@ -1,27 +1,16 @@
 import useSWR from "swr";
 import { Meal } from "../types/Meal";
 import { Link } from "react-router-dom";
+import SearchBar from "./searchBar";
 import { useState } from "react";
 
 const fetcher = (url: string) => fetch(url).then((res) => res.json());
 
-interface MealListProps {
-  search: string;
-  handleSearch: (query: string) => void;
-}
+const MealList = () => {
+  const [search, setSearch] = useState<string>("");
 
-const MealList = ({ search, handleSearch }: MealListProps) => {
-  const [searchMeal, setSearchMeal] = useState("");
-
-  const handleClear = () => {
-    setSearchMeal("");
-    handleSearch("");
-  };
-
-  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const value = e.target.value;
-    setSearchMeal(value);
-    handleSearch(value);
+  const handleSearch = (query: string) => {
+    setSearch(query);
   };
 
   const { data, error } = useSWR(
@@ -43,58 +32,13 @@ const MealList = ({ search, handleSearch }: MealListProps) => {
     );
   }
 
-  if (!data) {
+  if (!data || !data.meals) {
     return (
-      <div className="flex justify-center ">
+      <div className="flex justify-center">
         <div className="text-center">
-          <div className="relative w-full max-w-xs mx-auto">
-            <input
-              type="text"
-              placeholder="Search for a meal"
-              value={searchMeal}
-              onChange={handleChange}
-              className="p-2 border border-gray-300 rounded-xl w-full"
-            />
-            {search && (
-              <button
-                onClick={handleClear}
-                className="absolute right-2 top-1/2 transform -translate-y-1/2 text-gray-500"
-              >
-                &#x2715;
-              </button>
-            )}
-          </div>
+          <SearchBar search={search} handleSearch={handleSearch} />
           <div className="flex items-center justify-center min-h-screen">
-            <div className="text-2xl font-bold">Loading...</div>
-          </div>
-        </div>
-      </div>
-    );
-  }
-
-  if (!data.meals) {
-    return (
-      <div className="flex justify-center ">
-        <div className="text-center">
-          <div className="relative w-full max-w-xs mx-auto">
-            <input
-              type="text"
-              placeholder="Search for a meal"
-              value={searchMeal}
-              onChange={handleChange}
-              className="p-2 border border-gray-300 rounded-xl w-full"
-            />
-            {search && (
-              <button
-                onClick={handleClear}
-                className="absolute right-2 top-1/2 transform -translate-y-1/2 text-gray-500"
-              >
-                &#x2715;
-              </button>
-            )}
-          </div>
-          <div className="flex items-center justify-center min-h-screen ">
-            <div className="text-2xl font-bold"> No meals found </div>
+            <div className="text-2xl font-bold">No meals found</div>
           </div>
         </div>
       </div>
@@ -103,25 +47,7 @@ const MealList = ({ search, handleSearch }: MealListProps) => {
 
   return (
     <>
-      <div className="text-center ">
-        <div className="relative w-full max-w-xs mx-auto">
-          <input
-            type="text"
-            placeholder="Search for a meal"
-            value={searchMeal}
-            onChange={handleChange}
-            className="p-2 border border-gray-300 rounded-xl w-full"
-          />
-          {search && (
-            <button
-              onClick={handleClear}
-              className="absolute right-2 top-1/2 transform -translate-y-1/2 text-gray-500"
-            >
-              &#x2715;
-            </button>
-          )}
-        </div>
-      </div>
+      <SearchBar search={search} handleSearch={handleSearch} />
 
       <div className="flex basis-7 flex-wrap gap-4 justify-start m-8 font-sans w-full">
         {data.meals.map((meal: Meal) => (
