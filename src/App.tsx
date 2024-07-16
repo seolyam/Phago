@@ -21,7 +21,7 @@ function App() {
   return (
     <Router>
       <div className="font-sans min-h-screen flex flex-col">
-        <NavBar handleSearch={handleSearch} />
+        <NavBar />
         <Routes>
           <Route
             path="/"
@@ -35,7 +35,10 @@ function App() {
               </>
             }
           />
-          <Route path="/meals" element={<MealList search={search} />} />
+          <Route
+            path="/meals"
+            element={<MealList search={search} handleSearch={handleSearch} />}
+          />
           <Route path="/meal/:id" element={<MealDetails />} />
           <Route path="/about" element={<About />} />
           <Route path="/contact" element={<Contact />} />
