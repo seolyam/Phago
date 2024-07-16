@@ -1,24 +1,7 @@
-import React, { useState } from "react";
 import { Link, useLocation } from "react-router-dom";
 
-interface NavBarProps {
-  handleSearch: (query: string) => void;
-}
-
-export default function NavBar({ handleSearch }: NavBarProps) {
-  const [search, setSearch] = useState("");
+export default function NavBar() {
   const location = useLocation();
-
-  const handleClear = () => {
-    setSearch("");
-    handleSearch("");
-  };
-
-  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const value = e.target.value;
-    setSearch(value);
-    handleSearch(value);
-  };
 
   const getLinkClass = (path: string) => {
     return location.pathname === path
@@ -42,23 +25,6 @@ export default function NavBar({ handleSearch }: NavBarProps) {
           <Link to="/contact" className={getLinkClass("/contact")}>
             Contact
           </Link>
-        </div>
-        <div className="relative">
-          <input
-            type="text"
-            placeholder="Search for a meal"
-            value={search}
-            onChange={handleChange}
-            className="p-2 border border-gray-300 rounded-lg w-full"
-          />
-          {search && (
-            <button
-              onClick={handleClear}
-              className="absolute right-2 top-1/2 transform -translate-y-1/2 text-gray-500"
-            >
-              &#x2715;
-            </button>
-          )}
         </div>
       </div>
     </nav>
