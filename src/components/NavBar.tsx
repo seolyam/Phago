@@ -11,11 +11,11 @@ export default function NavBar() {
 
   return (
     <nav className="bg-white shadow-md mb-8 font-sans">
-      <div className="container mx-auto p-4 flex justify-between items-center">
+      <div className="container  p-4 flex  items-center">
         <div className="text-2xl font-thin text-gray-600">
           <Link to="/">phago. </Link>
         </div>
-        <div className="hidden md:flex space-x-6 gap-10">
+        <div className="justify-end flex space-x-6 gap-10 grow">
           <Link to="/meals" className={getLinkClass("/meals")}>
             Meals
           </Link>
