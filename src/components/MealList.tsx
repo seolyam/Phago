@@ -1,7 +1,7 @@
 import useSWR from "swr";
 import { Meal } from "../types/Meal";
 import { Link } from "react-router-dom";
-import SearchBar from "./searchBar";
+import SearchBar from "./SearchBar";
 import { useState } from "react";
 
 const fetcher = (url: string) => fetch(url).then((res) => res.json());
