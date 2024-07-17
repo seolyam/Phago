@@ -3,7 +3,7 @@ import Image from "../img/profile.jpg";
 
 const Contact = () => {
   return (
-    <div className="flex flex-col ml-10 items-start p-8 min-h-screen">
+    <div className="flex flex-col ml-10 p-8 min-h-screen  items-center">
       <h1 className="text-4xl font-bold mb-4">Contact Me</h1>
       <img
         src={Image}

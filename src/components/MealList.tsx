@@ -2,15 +2,14 @@ import useSWR from "swr";
 import { Meal } from "../types/Meal";
 import { Link } from "react-router-dom";
 import SearchBar from "./SearchBar";
+import { useState } from "react";
 
 const fetcher = (url: string) => fetch(url).then((res) => res.json());
 
-interface MealListProps {
-  search: string;
-  handleSearch: (query: string) => void;
-}
+const MealList = () => {
+  const [search, setSearch] = useState<string>("");
+  const handleSearch = (query: string) => setSearch(query);
 
-const MealList = ({ search, handleSearch }: MealListProps) => {
   const { data, error } = useSWR(
     search
       ? `https://www.themealdb.com/api/json/v1/1/search.php?s=${search}`
@@ -27,7 +26,20 @@ const MealList = ({ search, handleSearch }: MealListProps) => {
     );
   }
 
-  if (!data || !data.meals) {
+  if (!data) {
+    return (
+      <div className="flex justify-center">
+        <div className="text-center">
+          <SearchBar search={search} handleSearch={handleSearch} />
+          <div className="flex items-center justify-center min-h-screen">
+            <div className="text-2xl font-bold">Loading...</div>
+          </div>
+        </div>
+      </div>
+    );
+  }
+
+  if (!data.meals) {
     return (
       <div className="flex justify-center">
         <div className="text-center">
@@ -44,24 +56,27 @@ const MealList = ({ search, handleSearch }: MealListProps) => {
     <>
       <SearchBar search={search} handleSearch={handleSearch} />
 
-      <div className="flex flex-wrap gap-4 justify-center font-sans w-full ">
-        {data.meals.map((meal: Meal) => (
-          <Link
-            to={`/meal/${meal.idMeal}`}
-            key={meal.idMeal}
-            className="m-2 border cursor-pointer w-48 p-4 flex-8 bg-gray-100 rounded-md shadow-md flex flex-col items-center transition-transform duration-200 ease-in-out transform hover:scale-105"
-          >
-            <h2 className="text-lg font-bold text-center">{meal.strMeal}</h2>
-            <p className="mb-4">
-              {meal.strCategory} | {meal.strArea}
-            </p>
-            <img
-              src={meal.strMealThumb}
-              alt={meal.strMeal}
-              className="w-full h-40 object-cover mt-2 rounded-lg"
-            />
-          </Link>
-        ))}
+      <div className="flex justify-center">
+        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
+          {data.meals.map((meal: Meal) => (
+            <Link
+              to={`/meal/${meal.idMeal}`}
+              key={meal.idMeal}
+              className="border cursor-pointer p-4 bg-gray-100 rounded-lg shadow-md flex flex-col items-center transition-transform duration-200 ease-in-out transform hover:scale-105"
+              style={{ width: "265px" }}
+            >
+              <h2 className="text-lg font-bold text-center w-full">
+                {meal.strMeal}
+              </h2>
+              <p className="mb-2 text-sm">{meal.strCategory}</p>
+              <img
+                src={meal.strMealThumb}
+                alt={meal.strMeal}
+                className="w-full h-40 object-cover mt-2 rounded-lg"
+              />
+            </Link>
+          ))}
+        </div>
       </div>
     </>
   );
