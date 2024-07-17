@@ -44,12 +44,12 @@ const MealList = ({ search, handleSearch }: MealListProps) => {
     <>
       <SearchBar search={search} handleSearch={handleSearch} />
 
-      <div className="flex flex-wrap gap-4 justify-start m-8 font-sans w-full">
+      <div className="flex flex-wrap gap-4 justify-center font-sans w-full ">
         {data.meals.map((meal: Meal) => (
           <Link
             to={`/meal/${meal.idMeal}`}
             key={meal.idMeal}
-            className="m-2 border cursor-pointer w-48 p-4 bg-gray-100 rounded-lg shadow-md flex flex-col items-center transition-transform duration-200 ease-in-out transform hover:scale-105"
+            className="m-2 border cursor-pointer w-48 p-4 flex-8 bg-gray-100 rounded-md shadow-md flex flex-col items-center transition-transform duration-200 ease-in-out transform hover:scale-105"
           >
             <h2 className="text-lg font-bold text-center">{meal.strMeal}</h2>
             <p className="mb-4">
