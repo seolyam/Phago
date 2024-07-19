@@ -2,14 +2,15 @@ import useSWR from "swr";
 import { Meal } from "../types/Meal";
 import { Link } from "react-router-dom";
 import SearchBar from "./SearchBar";
-import { useState } from "react";
+
+interface MealListProps {
+  search: string;
+  handleSearch: (query: string) => void;
+}
 
 const fetcher = (url: string) => fetch(url).then((res) => res.json());
 
-const MealList = () => {
-  const [search, setSearch] = useState<string>("");
-  const handleSearch = (query: string) => setSearch(query);
-
+const MealList = ({ search, handleSearch }: MealListProps) => {
   const { data, error } = useSWR(
     search
       ? `https://www.themealdb.com/api/json/v1/1/search.php?s=${search}`
