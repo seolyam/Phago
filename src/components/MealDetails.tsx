@@ -2,7 +2,7 @@ import { useState } from "react";
 import { useParams, useNavigate } from "react-router-dom";
 import useSWR from "swr";
 import { Meal } from "../types/Meal";
-import Button from "../components/Button";
+import { Button } from "../components/ui/button";
 
 const fetcher = (url: string) => fetch(url).then((res) => res.json());
 
@@ -103,7 +103,7 @@ const MealDetails = () => {
 
       <Button
         onClick={() => navigate(-1)}
-        className="mr-4 rounded-xl px-4 fixed bottom-5 right-4 text-2xl bg-black text-white shadow-md text-[120%] transition-transform duration-200 ease-in-out transform hover:scale-105"
+        className="x-4 fixed bottom-5 right-6 transition-transform duration-200 ease-in-out transform hover:scale-105"
       >
         Back to List
       </Button>
