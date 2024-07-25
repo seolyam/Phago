@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import NavBar from "./components/NavBar";
-import RandomMeal from "./components/RandomMeal";
+import RandomMeal from "./components/HeroSection";
 import MealList from "./components/MealList";
 import MealDetails from "./components/MealDetails";
 import About from "./components/About";
@@ -10,6 +10,7 @@ import TestimonialsSection from "./components/TestimonialsSection";
 import PopularMealsSection from "./components/PopularMealsSection";
 import Footer from "./components/Footer";
 import Contact from "./components/Contact";
+import MealOfTheDay from "./components/MealOfTheDay";
 
 function App() {
   const [search, setSearch] = useState("");
@@ -27,6 +28,7 @@ function App() {
             path="/"
             element={
               <>
+                <MealOfTheDay />
                 <RandomMeal />
                 <FeaturesSection />
                 <PopularMealsSection />
