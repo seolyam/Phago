@@ -39,7 +39,7 @@ export default function NavBar({ className }: NavBarProps) {
         </div>
         <div className="justify-end flex space-x-6 gap-10 grow">
           {/* Links for Desktop */}
-          <div className="hidden md:flex space-x-6 gap-10">
+          <div className="hidden md:flex space-x-6 gap-10 items-center">
             <Link to="/meals" className={getLinkClass("/meals")}>
               Meals
             </Link>
