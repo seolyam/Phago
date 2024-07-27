@@ -32,7 +32,7 @@ export default function NavBar({ className }: NavBarProps) {
   };
 
   return (
-    <nav className={`bg-white shadow-md mb-8 font-sans ${className}`}>
+    <nav className={`bg-white shadow-md font-sans ${className}`}>
       <div className="container p-4 flex items-center">
         <div className="text-2xl font-thin text-gray-600">
           <Link to="/">phago.</Link>
