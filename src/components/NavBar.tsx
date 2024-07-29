@@ -27,14 +27,16 @@ export default function NavBar({ className }: NavBarProps) {
 
   const getLinkClass = (path: string) => {
     return location.pathname === path
-      ? "text-gray-950"
-      : "text-gray-600 hover:text-gray-800";
+      ? "text-bold"
+      : " text-gray hover:underline";
   };
 
   return (
-    <nav className={`bg-white shadow-md font-sans ${className}`}>
+    <nav
+      className={`bg-gray-800  text-white shadow-md font-sans ${className} `}
+    >
       <div className="container p-4 flex items-center">
-        <div className="text-2xl font-thin text-gray-600">
+        <div className="text-2xl font-thin ">
           <Link to="/">phago.</Link>
         </div>
         <div className="justify-end flex space-x-6 gap-10 grow">
