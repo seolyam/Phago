@@ -37,7 +37,7 @@ const MealOfTheDay = () => {
   }
 
   return (
-    <div className="min-h-[70vh] flex items-start  mt-[200px] justify-center ">
+    <div className="min-h-[70vh] flex items-center justify-center ">
       <div className="font-sans p-6 mx-auto flex flex-col md:flex-row items-center space-y-6 md:space-y-0 md:space-x-8 max-w-6xl">
         <div className="w-full md:w-1/4 text-center">
           <h1 className="text-5xl font-bold mb-4">Meal of the Day</h1>
