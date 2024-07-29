@@ -36,7 +36,7 @@ export default function NavBar({ className }: NavBarProps) {
       className={`bg-gray-800  text-white shadow-md font-sans ${className} `}
     >
       <div className="container p-4 flex items-center">
-        <div className="text-2xl font-thin ">
+        <div className="text-2xl font-thin transition-transform duration-200 ease-in-out transform hover:scale-105">
           <Link to="/">phago.</Link>
         </div>
         <div className="justify-end flex space-x-6 gap-10 grow">
