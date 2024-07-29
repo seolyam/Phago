@@ -38,6 +38,9 @@ const MealDetails = () => {
   return (
     <div className="container mx-auto p-4 font-sans">
       <h2 className="text-3xl text-center mb-2">{meal.strMeal}</h2>
+      <h1 className="mb-2 text-lg text-center">
+        {meal.strCategory} | {meal.strArea}
+      </h1>
       <div className="flex justify-center ">
         <img
           src={meal.strMealThumb}
