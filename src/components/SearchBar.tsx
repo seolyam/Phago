@@ -20,7 +20,7 @@ const SearchBar = ({ handleSearch, search }: SearchBarProps) => {
   };
 
   return (
-    <div className="text-center mb-4">
+    <div className="text-center mb-4 mt-4">
       <div className="relative w-full max-w-xs mx-auto">
         <input
           type="text"
