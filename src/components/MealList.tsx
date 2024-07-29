@@ -69,7 +69,9 @@ const MealList = ({ search, handleSearch }: MealListProps) => {
               <h2 className="text-lg font-bold text-center w-full">
                 {meal.strMeal}
               </h2>
-              <p className="mb-2 text-sm">{meal.strCategory}</p>
+              <p className="mb-2 text-sm">
+                {meal.strCategory} | {meal.strArea}
+              </p>
               <img
                 src={meal.strMealThumb}
                 alt={meal.strMeal}
