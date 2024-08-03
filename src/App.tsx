@@ -11,6 +11,7 @@ import PopularMealsSection from "./components/PopularMealsSection";
 import Footer from "./components/Footer";
 import Contact from "./components/Contact";
 import MealOfTheDay from "./components/MealOfTheDay";
+import Favorite from "./components/Favorite";
 
 function App() {
   const [search, setSearch] = useState("");
@@ -44,6 +45,10 @@ function App() {
           <Route path="/meal/:id" element={<MealDetails />} />
           <Route path="/about" element={<About />} />
           <Route path="/contact" element={<Contact />} />
+          <Route
+            path="/favorite"
+            element={<Favorite search={search} handleSearch={handleSearch} />}
+          />
         </Routes>
       </div>
     </Router>
