@@ -27,8 +27,8 @@ export default function NavBar({ className }: NavBarProps) {
 
   const getLinkClass = (path: string) => {
     return location.pathname === path
-      ? "text-bold"
-      : " text-gray hover:underline";
+      ? "text-bold font-semibold "
+      : " text-gray hover:underline ";
   };
 
   return (
@@ -40,8 +40,7 @@ export default function NavBar({ className }: NavBarProps) {
           <Link to="/">phago.</Link>
         </div>
         <div className="justify-end flex space-x-6 gap-10 grow">
-          {/* Links for Desktop */}
-          <div className="hidden md:flex space-x-6 gap-10 items-center">
+          <div className="hidden md:flex space-x-6 gap-10 items-center ">
             <Link to="/meals" className={getLinkClass("/meals")}>
               Meals
             </Link>
@@ -50,6 +49,9 @@ export default function NavBar({ className }: NavBarProps) {
             </Link>
             <Link to="/contact" className={getLinkClass("/contact")}>
               Contact
+            </Link>
+            <Link to="/favorite" className={getLinkClass("/favorite")}>
+              Favorite
             </Link>
           </div>
 
@@ -60,7 +62,6 @@ export default function NavBar({ className }: NavBarProps) {
               </Button>
             </SheetTrigger>
             <SheetContent>
-              {/* Links inside Sheet */}
               <div className="flex flex-col gap-10 py-4">
                 <Link
                   to="/meals"
@@ -82,6 +83,13 @@ export default function NavBar({ className }: NavBarProps) {
                   onClick={closeSheet}
                 >
                   Contact
+                </Link>
+                <Link
+                  to="/favorite"
+                  className={getLinkClass("/favorite")}
+                  onClick={closeSheet}
+                >
+                  Favorites
                 </Link>
               </div>
               <SheetClose asChild></SheetClose>
