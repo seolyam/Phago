@@ -1,21 +1,34 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useParams, useNavigate } from "react-router-dom";
 import useSWR from "swr";
 import { Meal } from "../types/Meal";
 import { Button } from "../components/ui/button";
+import FavoriteButton from "./FavoriteButton";
 
 const fetcher = (url: string) => fetch(url).then((res) => res.json());
 
 const MealDetails = () => {
-  const { id } = useParams();
+  const { id } = useParams<{ id: string }>();
   const navigate = useNavigate();
   const { data, error } = useSWR(
     `https://www.themealdb.com/api/json/v1/1/lookup.php?i=${id}`,
     fetcher
   );
 
+  const [isFavorite, setIsFavorite] = useState(false);
   const [showIngredients, setShowIngredients] = useState(false);
   const [showVideo, setShowVideo] = useState(false);
+
+  useEffect(() => {
+    if (data) {
+      const storedFavorites = localStorage.getItem("favoriteMeals");
+      if (storedFavorites) {
+        const favoriteMeals = JSON.parse(storedFavorites);
+        const isFav = favoriteMeals.some((meal: Meal) => meal.idMeal === id);
+        setIsFavorite(isFav);
+      }
+    }
+  }, [data, id]);
 
   if (error) {
     return <div>Failed to Load</div>;
@@ -31,6 +44,26 @@ const MealDetails = () => {
 
   const meal = data.meals[0] as Meal;
 
+  const toggleFavorite = () => {
+    let favoriteMeals: Meal[] = [];
+    const storedFavorites = localStorage.getItem("favoriteMeals");
+
+    if (storedFavorites) {
+      favoriteMeals = JSON.parse(storedFavorites);
+    }
+
+    if (isFavorite) {
+      favoriteMeals = favoriteMeals.filter(
+        (favMeal) => favMeal.idMeal !== meal.idMeal
+      );
+    } else {
+      favoriteMeals.push(meal);
+    }
+
+    localStorage.setItem("favoriteMeals", JSON.stringify(favoriteMeals));
+    setIsFavorite(!isFavorite);
+  };
+
   const youtubeUrl = meal.strYoutube;
   const videoId = youtubeUrl ? new URL(youtubeUrl).searchParams.get("v") : null;
   const embedUrl = videoId ? `https://www.youtube.com/embed/${videoId}` : null;
@@ -41,19 +74,21 @@ const MealDetails = () => {
       <h1 className="mb-2 text-lg text-center">
         {meal.strCategory} | {meal.strArea}
       </h1>
-      <div className="flex justify-center ">
+      <div className="flex justify-center pb-2">
         <img
           src={meal.strMealThumb}
           alt={meal.strMeal}
           className="w-[35%] h-auto object-cover transition-transform duration-200 ease-in-out transform hover:scale-[101%] "
         />
       </div>
-
+      <FavoriteButton
+        isFavorite={isFavorite}
+        onToggleFavorite={toggleFavorite}
+      />
       <div className="mt-4">
         <h2 className="text-xl font-thin mb-2 cursor-pointer">Instructions</h2>
         {meal.strInstructions}
       </div>
-
       <div className="mt-4">
         <h2
           className="text-xl font-thin mb-2 cursor-pointer"
@@ -117,8 +152,8 @@ const MealDetails = () => {
 function getIngredients(meal: Meal): { name: string; measure: string }[] {
   const ingredients: { name: string; measure: string }[] = [];
   for (let i = 1; i <= 20; i++) {
-    const ingredient = meal[`strIngredient${i}`];
-    const measure = meal[`strMeasure${i}`];
+    const ingredient = meal[`strIngredient${i}` as keyof Meal];
+    const measure = meal[`strMeasure${i}` as keyof Meal];
     if (ingredient && ingredient.trim() !== "") {
       ingredients.push({ name: ingredient, measure: measure ?? "" });
     }
