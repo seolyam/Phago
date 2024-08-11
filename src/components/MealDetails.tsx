@@ -78,16 +78,19 @@ const MealDetails = () => {
         <img
           src={meal.strMealThumb}
           alt={meal.strMeal}
-          className="w-[35%] h-auto object-cover transition-transform duration-200 ease-in-out transform hover:scale-[101%] "
+          className="w-[35%] h-auto object-cover rounded-lg shadow-lg transition-transform duration-200 ease-in-out transform hover:scale-[101%]"
         />
       </div>
-      <FavoriteButton
-        isFavorite={isFavorite}
-        onToggleFavorite={toggleFavorite}
-      />
+      <div className="flex items-center gap-2 justify-center ">
+        <p>Add to Favorites</p>
+        <FavoriteButton
+          isFavorite={isFavorite}
+          onToggleFavorite={toggleFavorite}
+        />
+      </div>
       <div className="mt-4">
         <h2 className="text-xl font-thin mb-2 cursor-pointer">Instructions</h2>
-        {meal.strInstructions}
+        <p>{meal.strInstructions}</p>
       </div>
       <div className="mt-4">
         <h2
@@ -97,7 +100,7 @@ const MealDetails = () => {
           Ingredients {showIngredients ? "▼" : "➤"}
         </h2>
         {showIngredients && (
-          <ul className="flex flex-wrap flex-col gap-y-4">
+          <ul className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-4">
             {getIngredients(meal).map((ingredient, index) => (
               <li
                 className="flex items-center text-nowrap space-x-2"
@@ -106,7 +109,7 @@ const MealDetails = () => {
                 <img
                   src={`https://www.themealdb.com/images/ingredients/${ingredient.name}-Small.png`}
                   alt={ingredient.name}
-                  className="w-16 h-16 object-cover transition-transform duration-200 ease-in-out transform hover:scale-105 "
+                  className="w-16 h-16 object-cover transition-transform duration-200 ease-in-out transform hover:scale-105"
                 />
                 <span>{ingredient.measure} &nbsp;</span>
                 <span>{ingredient.name}</span>
@@ -141,7 +144,7 @@ const MealDetails = () => {
 
       <Button
         onClick={() => navigate(-1)}
-        className="x-4 fixed bottom-5 right-6 transition-transform duration-200 ease-in-out transform hover:scale-105"
+        className="px-4 fixed bottom-5 right-6 transition-transform duration-200 ease-in-out transform hover:scale-105"
       >
         Back to List
       </Button>
