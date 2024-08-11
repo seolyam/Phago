@@ -2,6 +2,7 @@ import { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import { Meal } from "../types/Meal";
 import SearchBar from "./SearchBar";
+import FavoriteButton from "./FavoriteButton";
 
 interface FavoriteProps {
   search: string;
@@ -33,6 +34,24 @@ const Favorite = ({ search, handleSearch }: FavoriteProps) => {
     }
   }, [search, favoriteMeals]);
 
+  const toggleFavorite = (meal: Meal) => {
+    let updatedFavorites = [...favoriteMeals];
+    const isFavorite = updatedFavorites.some(
+      (favMeal) => favMeal.idMeal === meal.idMeal
+    );
+
+    if (isFavorite) {
+      updatedFavorites = updatedFavorites.filter(
+        (favMeal) => favMeal.idMeal !== meal.idMeal
+      );
+    } else {
+      updatedFavorites.push(meal);
+    }
+
+    setFavoriteMeals(updatedFavorites);
+    localStorage.setItem("favoriteMeals", JSON.stringify(updatedFavorites));
+  };
+
   if (filteredMeals.length === 0) {
     return (
       <div className="flex flex-col">
@@ -40,16 +59,16 @@ const Favorite = ({ search, handleSearch }: FavoriteProps) => {
           <SearchBar search={search} handleSearch={handleSearch} />
         </div>
         <div>
-          <h1 className="text-center text-3xl"> Your Favorite Meals</h1>
+          <h1 className="text-center text-3xl">Your Favorite Meals</h1>
         </div>
 
         <div className="flex justify-center items-center flex-col min-h-screen">
           <div className="text-xl font-bold">
-            It looks like you still haven't set your favorite meal{" "}
+            It looks like you haven't set your favorite meals yet.
           </div>
           <p className="text-sm">
-            You can set one by choosing your favorite meal and set it as
-            favorite by clicking the star
+            You can set one by choosing your favorite meal and clicking the
+            heart icon.
           </p>
         </div>
       </div>
@@ -60,29 +79,42 @@ const Favorite = ({ search, handleSearch }: FavoriteProps) => {
     <>
       <SearchBar search={search} handleSearch={handleSearch} />
       <div>
-        <h1 className="text-center text-3xl"> Your Favorite Meals</h1>
+        <h1 className="text-center text-3xl pb-4">Your Favorite Meals</h1>
       </div>
       <div className="flex justify-center mb-12">
         <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
           {filteredMeals.map((meal: Meal) => (
-            <Link
-              to={`/meal/${meal.idMeal}`}
+            <div
               key={meal.idMeal}
-              className="justify-center border cursor-pointer p-4 bg-gray-100 rounded-lg shadow-md flex flex-col items-center transition-transform duration-200 ease-in-out transform hover:scale-105"
+              className="relative border cursor-pointer p-4 bg-gray-100 rounded-lg shadow-md flex flex-col items-center transition-transform duration-200 ease-in-out transform hover:scale-105"
               style={{ width: "265px" }}
             >
-              <h2 className="text-lg font-bold text-center w-full">
-                {meal.strMeal}
-              </h2>
-              <p className="mb-2 text-sm">
-                {meal.strCategory} | {meal.strArea}
-              </p>
-              <img
-                src={meal.strMealThumb}
-                alt={meal.strMeal}
-                className="w-full h-40 object-cover mt-2 rounded-lg"
-              />
-            </Link>
+              <Link
+                to={`/meal/${meal.idMeal}`}
+                className="w-full flex flex-col items-center"
+              >
+                <h2 className="text-lg font-bold text-center w-full">
+                  {meal.strMeal}
+                </h2>
+                <p className="mb-2 text-sm">
+                  {meal.strCategory} | {meal.strArea}
+                </p>
+                <img
+                  src={meal.strMealThumb}
+                  alt={meal.strMeal}
+                  className="w-full h-40 object-cover mt-2 rounded-lg"
+                />
+              </Link>
+
+              <div className="absolute top-2 right-2">
+                <FavoriteButton
+                  isFavorite={favoriteMeals.some(
+                    (favMeal) => favMeal.idMeal === meal.idMeal
+                  )}
+                  onToggleFavorite={() => toggleFavorite(meal)}
+                />
+              </div>
+            </div>
           ))}
         </div>
       </div>
