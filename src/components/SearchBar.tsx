@@ -1,4 +1,4 @@
-import React, { useRef } from "react";
+import React, { useState, useRef } from "react";
 import { debounce } from "lodash";
 
 interface SearchBarProps {
@@ -7,15 +7,20 @@ interface SearchBarProps {
 }
 
 const SearchBar = ({ handleSearch, search }: SearchBarProps) => {
+  const [inputValue, setInputValue] = useState(search);
+
   const debouncedSearch = useRef(
     debounce((query: string) => handleSearch(query), 500)
   ).current;
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    debouncedSearch(e.target.value);
+    const newValue = e.target.value;
+    setInputValue(newValue);
+    debouncedSearch(newValue);
   };
 
   const handleClear = () => {
+    setInputValue("");
     handleSearch("");
   };
 
@@ -24,12 +29,12 @@ const SearchBar = ({ handleSearch, search }: SearchBarProps) => {
       <div className="relative w-full max-w-xs mx-auto">
         <input
           type="text"
+          value={inputValue}
           placeholder="Search for a meal"
-          defaultValue={search}
           onChange={handleChange}
           className="p-2 border border-gray-300 rounded-xl w-full"
         />
-        {search && (
+        {inputValue && (
           <button
             onClick={handleClear}
             className="absolute right-2 top-1/2 transform -translate-y-1/2 text-gray-500"
