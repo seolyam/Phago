@@ -12,6 +12,7 @@ import Footer from "./components/Footer";
 import Contact from "./components/Contact";
 import MealOfTheDay from "./components/MealOfTheDay";
 import Favorite from "./components/Favorite";
+import Recent from "./components/Recent";
 
 function App() {
   const [search, setSearch] = useState("");
@@ -34,6 +35,7 @@ function App() {
                 <FeaturesSection />
                 <PopularMealsSection />
                 <TestimonialsSection />
+                <Recent />
                 <Footer />
               </>
             }
