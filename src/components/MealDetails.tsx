@@ -4,6 +4,7 @@ import useSWR from "swr";
 import { Meal } from "../types/Meal";
 import { Button } from "../components/ui/button";
 import FavoriteButton from "./FavoriteButton";
+import { addMealToRecentlyViewed } from "../utils/recentlyViewed"; // Import the utility function
 
 const fetcher = (url: string) => fetch(url).then((res) => res.json());
 
@@ -20,13 +21,19 @@ const MealDetails = () => {
   const [showVideo, setShowVideo] = useState(false);
 
   useEffect(() => {
-    if (data) {
+    if (data && data.meals && data.meals.length > 0) {
+      const meal = data.meals[0] as Meal;
       const storedFavorites = localStorage.getItem("favoriteMeals");
+
       if (storedFavorites) {
         const favoriteMeals = JSON.parse(storedFavorites);
-        const isFav = favoriteMeals.some((meal: Meal) => meal.idMeal === id);
+        const isFav = favoriteMeals.some(
+          (favMeal: Meal) => favMeal.idMeal === id
+        );
         setIsFavorite(isFav);
       }
+
+      addMealToRecentlyViewed(meal);
     }
   }, [data, id]);
 
