@@ -4,6 +4,7 @@ import { Meal } from "../types/Meal";
 import { Link } from "react-router-dom";
 import SearchBar from "./SearchBar";
 import FavoriteButton from "./FavoriteButton";
+import Footer from "./Footer";
 
 interface MealListProps {
   search: string;
@@ -254,6 +255,7 @@ const MealList = ({ search, handleSearch }: MealListProps) => {
           })}
         </div>
       </div>
+      <Footer></Footer>
     </>
   );
 };
