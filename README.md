@@ -11,10 +11,10 @@ Phago is a web application built with React and TypeScript, designed to help use
 
 ## Technologies Used
 
-- **React**: Frontend library for building user interfaces.
-- **TypeScript**: Typed superset of JavaScript for improved code quality.
-- **SWR**: React Hooks library for data fetching.
-- **Tailwind CSS**: Utility-first CSS framework for styling.
-- **React Router**: Declarative routing for React applications.
+- **React**
+- **TypeScript**
+- **SWR**
+- **Tailwind CSS**
+- **React Router**
 
 
