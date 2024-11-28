@@ -1,4 +1,3 @@
-import { useState } from "react";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import NavBar from "./components/NavBar";
 import RandomMeal from "./components/HeroSection";
@@ -13,6 +12,9 @@ import Contact from "./components/Contact";
 import MealOfTheDay from "./components/MealOfTheDay";
 import Favorite from "./components/Favorite";
 import Recent from "./components/Recent";
+import SpoonacularRecipes from "./components/SpoonacularRecipes"; // Import Spoonacular
+import { useState } from "react";
+import RecipeDetail from "./components/RecipeDetails";
 
 function App() {
   const [search, setSearch] = useState("");
@@ -51,6 +53,9 @@ function App() {
             path="/favorite"
             element={<Favorite search={search} handleSearch={handleSearch} />}
           />
+          <Route path="/spoonacular" element={<SpoonacularRecipes />} />{" "}
+          <Route path="/recipe/:id" element={<RecipeDetail />} />{" "}
+          {/* New Route */}
         </Routes>
       </div>
     </Router>
