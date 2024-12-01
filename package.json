@@ -17,6 +17,7 @@
     "autoprefixer": "^10.4.19",
     "class-variance-authority": "^0.7.0",
     "clsx": "^2.1.1",
+    "dotenv": "^16.4.5",
     "embla-carousel-react": "^8.1.8",
     "lodash": "^4.17.21",
     "lucide-react": "^0.397.0",
@@ -26,6 +27,7 @@
     "react-dom": "^18.2.0",
     "react-lazyload": "^3.2.1",
     "react-router-dom": "^6.23.1",
+    "react-select": "^5.8.3",
     "swr": "^2.2.5",
     "tailwind-merge": "^2.3.0",
     "tailwindcss-animate": "^1.0.7"
@@ -36,6 +38,7 @@
     "@types/react": "^18.2.66",
     "@types/react-dom": "^18.2.22",
     "@types/react-lazyload": "^3.2.3",
+    "@types/react-select": "^5.0.1",
     "@typescript-eslint/eslint-plugin": "^7.2.0",
     "@typescript-eslint/parser": "^7.2.0",
     "@vitejs/plugin-react-swc": "^3.5.0",

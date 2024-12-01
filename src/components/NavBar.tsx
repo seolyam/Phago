@@ -1,3 +1,4 @@
+// src/components/NavBar.tsx
 import { useState } from "react";
 import { Link, useLocation } from "react-router-dom";
 import { Button } from "@/components/ui/button";
@@ -45,6 +46,10 @@ export default function NavBar({ className }: NavBarProps) {
             <Link to="/spoonacular" className={getLinkClass("/spoonacular")}>
               Spoonacular
             </Link>
+            <Link to="/edamam" className={getLinkClass("/edamam")}>
+              Edamam
+            </Link>{" "}
+            {/* New Link */}
           </div>
 
           <Sheet open={isSheetOpen} onOpenChange={setIsSheetOpen}>
@@ -69,6 +74,14 @@ export default function NavBar({ className }: NavBarProps) {
                 >
                   Spoonacular
                 </Link>
+                <Link
+                  to="/edamam"
+                  className={getLinkClass("/edamam")}
+                  onClick={closeSheet}
+                >
+                  Edamam
+                </Link>{" "}
+                {/* New Link */}
                 <Link
                   to="/about"
                   className={getLinkClass("/about")}
