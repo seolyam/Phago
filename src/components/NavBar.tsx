@@ -1,13 +1,9 @@
 // src/components/NavBar.tsx
+
 import { useState } from "react";
 import { Link, useLocation } from "react-router-dom";
-import { Button } from "@/components/ui/button";
-import {
-  Sheet,
-  SheetTrigger,
-  SheetContent,
-  SheetClose,
-} from "@/components/ui/sheet";
+import { Button } from "./ui/button";
+import { Sheet, SheetTrigger, SheetContent, SheetClose } from "./ui/sheet";
 import HamburgerIcon from "./HamburgerIcon";
 
 interface NavBarProps {
@@ -39,6 +35,7 @@ export default function NavBar({ className }: NavBarProps) {
           <Link to="/">phago.</Link>
         </div>
         <div className="justify-end flex space-x-6 gap-10 grow">
+          {/* Desktop Navigation */}
           <div className="hidden md:flex space-x-6 gap-10 items-center">
             <Link to="/meals" className={getLinkClass("/meals")}>
               TheMealDB
@@ -46,15 +43,22 @@ export default function NavBar({ className }: NavBarProps) {
             <Link to="/spoonacular" className={getLinkClass("/spoonacular")}>
               Spoonacular
             </Link>
+            <Link
+              to="/edamam-search"
+              className={getLinkClass("/edamam-search")}
+            >
+              Edamam Recipe
+            </Link>
             <Link to="/edamam" className={getLinkClass("/edamam")}>
-              Edamam
-            </Link>{" "}
-            {/* New Link */}
+              Nutrition Search
+            </Link>
+            {/* Other Links */}
           </div>
 
+          {/* Mobile Navigation */}
           <Sheet open={isSheetOpen} onOpenChange={setIsSheetOpen}>
             <SheetTrigger asChild>
-              <Button variant="outline" onClick={toggleSheet}>
+              <Button onClick={toggleSheet}>
                 <HamburgerIcon />
               </Button>
             </SheetTrigger>
@@ -75,13 +79,20 @@ export default function NavBar({ className }: NavBarProps) {
                   Spoonacular
                 </Link>
                 <Link
+                  to="/edamam-search"
+                  className={getLinkClass("/edamam-search")}
+                  onClick={closeSheet}
+                >
+                  Edamam Recipe
+                </Link>
+                <Link
                   to="/edamam"
                   className={getLinkClass("/edamam")}
                   onClick={closeSheet}
                 >
-                  Edamam
-                </Link>{" "}
-                {/* New Link */}
+                  Nutrition Search
+                </Link>
+                {/* Other Links */}
                 <Link
                   to="/about"
                   className={getLinkClass("/about")}

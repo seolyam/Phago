@@ -1,45 +1,94 @@
-// src/types/Types.ts
-
 export interface RecipeData {
   title: string;
   ingr: string[];
-}
-
-export interface IngredientSuggestion {
-  value: string;
-  label: string;
+  url?: string;
+  summary?: string;
+  yield?: string;
+  time?: string;
+  img?: string;
+  prep?: string[];
 }
 
 export interface NutritionData {
+  uri: string;
+  url: string;
+  yield: number;
   calories: number;
-  totalNutrients: {
-    [key: string]: {
-      label: string;
-      quantity: number;
-      unit: string;
-    };
-  };
+  totalWeight: number;
+  dietLabels: string[];
   healthLabels: string[];
+  cautions: string[];
+  totalNutrients: {
+    [key: string]: NutrientInfo;
+  };
+  totalDaily: {
+    [key: string]: NutrientInfo;
+  };
+  ingredientLines: string[];
+  ingredients: Ingredient[];
+  cuisineType?: string[];
+  mealType?: string[];
+  dishType?: string[];
 }
 
-export interface RecipeSearchResponse {
+export interface NutrientInfo {
+  label: string;
+  quantity: number;
+  unit: string;
+}
+
+export interface Ingredient {
+  text: string;
+  parsed?: ParsedIngredient;
+}
+
+export interface ParsedIngredient {
+  quantity: number;
+  measure: string;
+  measureURI?: string;
+  foodMatch: string;
+  food: string;
+  foodId: string;
+  weight: number;
+  nutrients: {
+    [key: string]: NutrientInfo;
+  };
+  status: string;
+}
+
+// Add this missing type
+export interface IngredientSuggestion {
+  value: string; // The value to be used in forms or data submission
+  label: string; // The user-friendly label for display
+}
+
+// src/types/Types.ts
+
+export interface RecipeSearchResult {
   from: number;
   to: number;
   count: number;
-  hits: RecipeHit[];
-}
-
-export interface RecipeHit {
-  recipe: Recipe;
+  _links: {
+    next?: {
+      href: string;
+      title: string;
+    };
+  };
+  hits: {
+    recipe: Recipe;
+    _links: {
+      self: {
+        href: string;
+        title: string;
+      };
+    };
+  }[];
 }
 
 export interface Recipe {
   uri: string;
   label: string;
   image: string;
-  images: {
-    [key: string]: ImageInfo;
-  };
   source: string;
   url: string;
   shareAs: string;
@@ -48,26 +97,29 @@ export interface Recipe {
   healthLabels: string[];
   cautions: string[];
   ingredientLines: string[];
-  ingredients: Ingredient[];
+  ingredients: RecipeIngredient[];
   calories: number;
   totalWeight: number;
   totalTime: number;
-  cuisineType: string[];
-  mealType: string[];
-  dishType: string[];
+  cuisineType?: string[];
+  mealType?: string[];
+  dishType?: string[];
 }
 
-export interface ImageInfo {
-  url: string;
-  width: number;
-  height: number;
-}
-
-export interface Ingredient {
+export interface RecipeIngredient {
   text: string;
   quantity: number;
   measure: string;
   food: string;
   weight: number;
   foodId: string;
+}
+export interface Recipe {
+  label: string;
+  image: string;
+  url: string;
+  source: string;
+  calories: number;
+  healthLabels: string[];
+  ingredientLines: string[];
 }

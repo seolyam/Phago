@@ -4,6 +4,8 @@ import {
   IngredientSuggestion,
   RecipeData,
   NutritionData,
+  RecipeSearchResult,
+  Recipe,
 } from "../types/Types";
 
 // Credentials for different APIs
@@ -13,10 +15,47 @@ const EDAMAM_FOOD_APP_KEY = import.meta.env.VITE_EDAMAM_FOOD_APP_KEY;
 const EDAMAM_NUTRITION_APP_ID = import.meta.env.VITE_EDAMAM_NUTRITION_APP_ID;
 const EDAMAM_NUTRITION_APP_KEY = import.meta.env.VITE_EDAMAM_NUTRITION_APP_KEY;
 
+const EDAMAM_RECIPE_APP_ID = import.meta.env.VITE_EDAMAM_RECIPE_APP_ID;
+const EDAMAM_RECIPE_APP_KEY = import.meta.env.VITE_EDAMAM_RECIPE_APP_KEY;
+
 // Endpoint URLs
+const RECIPE_SEARCH_BASE_URL = "https://api.edamam.com/api/recipes/v2";
 const EDAMAM_AUTO_COMPLETE_URL = "https://api.edamam.com/auto-complete";
 const EDAMAM_NUTRITION_ANALYSIS_URL =
   "https://api.edamam.com/api/nutrition-details";
+
+const EDAMAM_ACCOUNT_USER = "seolyam";
+// Function to search recipes using the Recipe Search API
+export const searchRecipes = async (
+  query: string
+): Promise<RecipeSearchResult> => {
+  if (!query) {
+    throw new Error("Query is required for searching recipes.");
+  }
+
+  const url = `https://api.edamam.com/api/recipes/v2?type=public&q=${encodeURIComponent(
+    query
+  )}&app_id=${EDAMAM_RECIPE_APP_ID}&app_key=${EDAMAM_RECIPE_APP_KEY}`;
+
+  try {
+    const response = await fetch(url, {
+      method: "GET",
+      headers: {
+        "Edamam-Account-User": EDAMAM_ACCOUNT_USER,
+      },
+    });
+
+    if (!response.ok) {
+      const errorData = await response.json();
+      throw new Error(errorData.message || "Failed to search recipes");
+    }
+    const data: RecipeSearchResult = await response.json();
+    return data;
+  } catch (error) {
+    console.error("Error searching recipes:", error);
+    throw error;
+  }
+};
 
 // Function to fetch ingredient suggestions using Food Database API's /auto-complete endpoint
 export const fetchIngredientSuggestions = async (
@@ -57,6 +96,24 @@ export const fetchIngredientSuggestions = async (
   } catch (error) {
     console.error("Error fetching ingredient suggestions:", error);
     return [];
+  }
+};
+export const fetchRecipeById = async (id: string): Promise<Recipe> => {
+  const url = `${RECIPE_SEARCH_BASE_URL}/${id}?type=public&app_id=${EDAMAM_RECIPE_APP_ID}&app_key=${EDAMAM_RECIPE_APP_KEY}`;
+
+  try {
+    const response = await fetch(url);
+
+    if (!response.ok) {
+      const errorData = await response.json();
+      throw new Error(errorData.message || "Failed to fetch recipe details");
+    }
+
+    const data = await response.json();
+    return data.recipe; // Access recipe property directly
+  } catch (error) {
+    console.error("Error fetching recipe by ID:", error);
+    throw error;
   }
 };
 

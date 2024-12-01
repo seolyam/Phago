@@ -10,10 +10,6 @@ import {
 } from "../types/Types";
 
 const EdamamNutrition: React.FC = () => {
-  console.log("EDAMAM_FOOD_APP_ID:", EDAMAM_FOOD_APP_ID);
-  console.log("EDAMAM_NUTRITION_APP_ID:", EDAMAM_NUTRITION_APP_ID);
-
-  const [title, setTitle] = useState<string>("");
   const [ingredients, setIngredients] = useState<string[]>([]);
   const [nutritionData, setNutritionData] = useState<NutritionData | null>(
     null
@@ -63,8 +59,8 @@ const EdamamNutrition: React.FC = () => {
     }
 
     const newRecipeData: RecipeData = {
-      title: title || "Untitled Recipe",
       ingr: ingredients,
+      title: "",
     };
 
     setIsLoading(true);
@@ -86,18 +82,6 @@ const EdamamNutrition: React.FC = () => {
 
   return (
     <div className="container mx-auto p-4">
-      {/* Recipe Title */}
-      <div className="mb-4">
-        <label className="block font-bold mb-2">Recipe Title:</label>
-        <input
-          type="text"
-          placeholder="Enter recipe title"
-          value={title}
-          onChange={(e) => setTitle(e.target.value)}
-          className="border p-2 rounded w-full"
-        />
-      </div>
-
       {/* Ingredients Autocomplete */}
       <div className="mb-4">
         <label className="block font-bold mb-2">Ingredients:</label>

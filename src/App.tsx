@@ -1,5 +1,6 @@
 // src/App.tsx
 
+import { useState } from "react";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import NavBar from "./components/NavBar";
 import RandomMeal from "./components/HeroSection";
@@ -15,8 +16,8 @@ import MealOfTheDay from "./components/MealOfTheDay";
 import Favorite from "./components/Favorite";
 import Recent from "./components/Recent";
 import SpoonacularRecipes from "./components/SpoonacularRecipes";
-import EdamamNutrition from "./components/EdamamNutrition"; // Import the updated component
-import { useState } from "react";
+import EdamamNutrition from "./components/EdamamNutrition";
+import EdamamRecipeSearch from "./components/EdamamRecipeSearch"; // New component
 import RecipeDetail from "./components/RecipeDetails";
 
 function App() {
@@ -57,8 +58,9 @@ function App() {
             element={<Favorite search={search} handleSearch={handleSearch} />}
           />
           <Route path="/spoonacular" element={<SpoonacularRecipes />} />
-          <Route path="/edamam" element={<EdamamNutrition />} />{" "}
-          {/* Updated Route */}
+          <Route path="/edamam" element={<EdamamNutrition />} />
+          <Route path="/edamam-search" element={<EdamamRecipeSearch />} />{" "}
+          {/* New Route */}
           <Route path="/recipe/:id" element={<RecipeDetail />} />
         </Routes>
       </div>
