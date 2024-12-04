@@ -1,12 +1,9 @@
+// src/components/SpoonacularRecipes.tsx
+
 import { useState } from "react";
 import { fetchSpoonacularData } from "../utils/spoonacular";
 import { useNavigate } from "react-router-dom";
-
-interface Recipe {
-  id: number;
-  title: string;
-  image: string;
-}
+import { Recipe } from "../types/Types";
 
 const SpoonacularRecipes = () => {
   const [recipes, setRecipes] = useState<Recipe[]>([]);

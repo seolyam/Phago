@@ -86,6 +86,8 @@ export interface RecipeSearchResult {
 }
 
 export interface Recipe {
+  id: number;
+  title: string | undefined;
   uri: string;
   label: string;
   image: string;
@@ -122,4 +124,17 @@ export interface Recipe {
   calories: number;
   healthLabels: string[];
   ingredientLines: string[];
+}
+
+export interface RecipeDetail {
+  id: number;
+  title: string;
+  image: string;
+  servings: number;
+  readyInMinutes: number;
+  instructions: string;
+  extendedIngredients: {
+    name: string;
+    original: string;
+  }[];
 }

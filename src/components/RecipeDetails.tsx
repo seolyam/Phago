@@ -1,17 +1,11 @@
+// src/components/RecipeDetail.tsx
+
 import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
+import { fetchRecipeDetail } from "../utils/spoonacular";
+import { RecipeDetail } from "../types/Types";
 
-interface RecipeDetail {
-  id: number;
-  title: string;
-  image: string;
-  servings: number;
-  readyInMinutes: number;
-  instructions: string;
-  extendedIngredients: { name: string; original: string }[];
-}
-
-const RecipeDetail = () => {
+const RecipeDetailComponent = () => {
   const { id } = useParams<{ id: string }>();
   const [recipe, setRecipe] = useState<RecipeDetail | null>(null);
   const [loading, setLoading] = useState(false);
@@ -23,16 +17,13 @@ const RecipeDetail = () => {
       setError("");
 
       try {
-        const response = await fetch(
-          `https://api.spoonacular.com/recipes/${id}/information?apiKey=516110463dc94349a2669e37c5c56a70`
-        );
-        if (!response.ok) {
-          throw new Error("Failed to fetch recipe details");
+        if (id) {
+          const data = await fetchRecipeDetail(id);
+          setRecipe(data);
+        } else {
+          setError("No recipe ID provided.");
         }
-        const data = await response.json();
-        setRecipe(data);
       } catch (err: unknown) {
-        // Properly narrow the type of `err`
         if (err instanceof Error) {
           setError(err.message);
         } else {
@@ -43,9 +34,7 @@ const RecipeDetail = () => {
       }
     };
 
-    if (id) {
-      fetchRecipe();
-    }
+    fetchRecipe();
   }, [id]);
 
   if (loading) return <p>Loading...</p>;
@@ -80,4 +69,4 @@ const RecipeDetail = () => {
   );
 };
 
-export default RecipeDetail;
+export default RecipeDetailComponent;
